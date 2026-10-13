@@ -17,9 +17,11 @@ const PdfViewer = dynamic(() => import("./pdf-viewer"), { ssr: false });
 function VideoPlayer({
   asset,
   poster,
+  active,
 }: {
   asset: VideoAsset;
   poster?: string;
+  active: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
@@ -27,7 +29,12 @@ function VideoPlayer({
     const video = ref.current;
     // Restore the source on effect setup: React Strict Mode intentionally runs
     // setup/cleanup/setup in development, and cleanup releases the old source.
-    if (video) video.src = asset.src;
+    if (video && active) video.src = asset.src;
+    if (video && !active) {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    }
     return () => {
       if (video) {
         video.pause();
@@ -35,7 +42,7 @@ function VideoPlayer({
         video.load();
       }
     };
-  }, [asset.src]);
+  }, [asset.src, active]);
   return failed ? (
     <div className="media-fallback">
       <AlertCircle />
@@ -66,11 +73,15 @@ function VideoPlayer({
 }
 export default function ProjectViewer({
   project,
+  open,
   onClose,
+  onClosed,
   restoreFocus,
 }: {
   project: Project;
+  open: boolean;
   onClose: () => void;
+  onClosed: () => void;
   restoreFocus: () => void;
 }) {
   const { sidebarCollapsed } = usePortfolio();
@@ -97,7 +108,7 @@ export default function ProjectViewer({
   }
   return (
     <Dialog
-      open
+      open={open}
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
@@ -107,7 +118,9 @@ export default function ProjectViewer({
         data-sidebar-collapsed={sidebarCollapsed}
         onCloseAutoFocus={(event) => {
           event.preventDefault();
+          if (open) return;
           restoreFocus();
+          onClosed();
         }}
         onKeyDown={(event) => {
           if (
@@ -177,6 +190,7 @@ export default function ProjectViewer({
                   <PdfViewer key={media.src} asset={media} />
                 ) : (
                   <VideoPlayer
+                    active={open}
                     key={media.src}
                     asset={media}
                     poster={activeProject.poster ?? activeProject.cover?.src}

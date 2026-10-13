@@ -54,7 +54,7 @@ try {
   });
   const page = await browser.newPage({
     viewport: { width: 1440, height: 900 },
-    reducedMotion: "reduce",
+    reducedMotion: "no-preference",
   });
   page.setDefaultTimeout(15_000);
   console.log("Video fixture prepared; opening browser.");
@@ -108,6 +108,10 @@ try {
   });
   await page.keyboard.press("Escape");
   console.log("Closed video; checking cleanup.");
+  // Release playback while the dialog finishes its short closing fade.
+  await page.waitForFunction(
+    () => window.__qaVideo.paused && !window.__qaVideo.hasAttribute("src"),
+  );
   await page.waitForFunction(
     () =>
       window.__qaVideo.paused &&

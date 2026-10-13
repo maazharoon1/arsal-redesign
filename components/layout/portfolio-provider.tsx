@@ -60,6 +60,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     () => defaultCategory,
   );
   const [project, setProject] = useState<Project | null>(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const returnFocus = useRef<HTMLElement | null>(null);
   function selectCategory(id: CategoryId) {
@@ -67,7 +68,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       returnFocus.current = document.querySelector<HTMLButtonElement>(
         `.desktop-sidebar [data-category="${id}"]`,
       );
-      setProject(null);
+      setViewerOpen(false);
     }
     const url = new URL(window.location.href);
     url.searchParams.set("category", id);
@@ -87,6 +88,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
         openProject: (item, trigger) => {
           returnFocus.current = trigger;
           setProject(item);
+          setViewerOpen(true);
         },
       }}
     >
@@ -97,8 +99,11 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       </div>
       {project && (
         <ProjectViewer
+          key={project.id}
           project={project}
-          onClose={() => setProject(null)}
+          open={viewerOpen}
+          onClose={() => setViewerOpen(false)}
+          onClosed={() => setProject(null)}
           restoreFocus={() =>
             returnFocus.current?.focus({ preventScroll: true })
           }

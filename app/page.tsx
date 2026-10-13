@@ -7,10 +7,12 @@ import { Collection } from "@/components/sections/collection";
 import { Studio } from "@/components/sections/studio";
 import { Process } from "@/components/sections/process";
 import { Contact } from "@/components/sections/contact";
+import { SiteMotion } from "@/components/motion/site-motion";
 
 export default function Home() {
   return (
     <PortfolioProvider>
+      <SiteMotion />
       <a className="skip-link" href="#main">
         Skip to content
       </a>

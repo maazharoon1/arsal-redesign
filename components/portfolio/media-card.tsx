@@ -7,9 +7,11 @@ import { MediaImage } from "./media-image";
 export function MediaCard({
   project,
   featured = false,
+  revealOrder = 0,
 }: {
   project: Project;
   featured?: boolean;
+  revealOrder?: number;
 }) {
   const { openProject } = usePortfolio();
   const first = project.media[0];
@@ -31,10 +33,10 @@ export function MediaCard({
           alt={project.cover?.alt ?? first.alt}
           sizes={
             website
-              ? "(max-width: 767px) 50vw, 25vw"
+              ? "(max-width: 1023px) 50vw, 33vw"
               : featured
                 ? "(max-width: 767px) 100vw, 33vw"
-                : "(max-width: 479px) 100vw, (max-width: 1023px) 50vw, 45vw"
+                : "(max-width: 1023px) 50vw, 33vw"
           }
         />
       ) : (
@@ -69,6 +71,8 @@ export function MediaCard({
     return (
       <a
         className={className}
+        data-reveal
+        data-reveal-order={revealOrder}
         href={project.liveUrl}
         target="_blank"
         rel="noopener noreferrer"
@@ -81,6 +85,8 @@ export function MediaCard({
     return (
       <a
         className={className}
+        data-reveal
+        data-reveal-order={revealOrder}
         href={first.src}
         target="_blank"
         rel="noopener noreferrer"
@@ -99,6 +105,8 @@ export function MediaCard({
     <button
       type="button"
       className={className}
+      data-reveal
+      data-reveal-order={revealOrder}
       aria-label={project.accessibleLabel}
       aria-haspopup="dialog"
       onClick={(event) => openProject(project, event.currentTarget)}

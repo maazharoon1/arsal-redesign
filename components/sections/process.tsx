@@ -9,14 +9,16 @@ export function Process() {
       className="section process"
       aria-labelledby="process-heading"
     >
-      <p className="eyebrow">{site.process.eyebrow}</p>
-      <h2 id="process-heading">
+      <p className="eyebrow" data-reveal>
+        {site.process.eyebrow}
+      </p>
+      <h2 id="process-heading" data-reveal>
         {site.process.heading} <em>{site.process.accent}</em>
       </h2>
       <Scene className="process-grid">
         <ol>
           {site.process.steps.map((step, index) => (
-            <li key={step.title}>
+            <li key={step.title} data-reveal data-reveal-order={index % 3}>
               <GlowBorderCard>
                 <span className="step-number">0{index + 1}</span>
                 <div

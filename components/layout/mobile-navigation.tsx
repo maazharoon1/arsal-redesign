@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight, Grid2X2 } from "lucide-react";
+import { ArrowUpRight, Grid2X2, Menu } from "lucide-react";
 import { site, contactTarget } from "@/config/site";
 import { navigation } from "@/config/navigation";
 import { CategoryList } from "./category-list";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
       <header className="mobile-header">
@@ -20,17 +21,36 @@ export function MobileNavigation() {
           {site.name}
           <span>{site.tagline}</span>
         </a>
-        <nav aria-label="Mobile navigation">
-          {navigation
-            .filter(
-              (item) => item.label === "About" || item.label === "Contact",
-            )
-            .map((item) => (
-              <a key={item.label} href={item.href}>
-                {item.label}
-              </a>
-            ))}
-        </nav>
+        <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+          <DialogTrigger asChild>
+            <button
+              className="mobile-menu-trigger"
+              aria-label="Open navigation"
+            >
+              <Menu size={24} />
+            </button>
+          </DialogTrigger>
+          <DialogContent
+            className="category-drawer mobile-menu"
+            closeLabel="Close navigation"
+          >
+            <DialogTitle className="drawer-title">{site.name}</DialogTitle>
+            <DialogDescription className="sr-only">
+              Navigate Arsal’s portfolio.
+            </DialogDescription>
+            <nav aria-label="Mobile navigation">
+              {navigation.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </DialogContent>
+        </Dialog>
       </header>
       <div className="mobile-bottom-bar">
         <Dialog open={open} onOpenChange={setOpen}>
@@ -40,7 +60,10 @@ export function MobileNavigation() {
               Categories
             </button>
           </DialogTrigger>
-          <DialogContent className="category-drawer">
+          <DialogContent
+            className="category-drawer"
+            closeLabel="Close categories"
+          >
             <DialogTitle className="drawer-title">
               Explore the collection
             </DialogTitle>

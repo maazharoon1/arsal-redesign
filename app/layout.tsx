@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import localFont from "next/font/local";
 import "./globals.css";
+import "@/components/motion/motion.css";
 import { site } from "@/config/site";
+
+// A single local variable file is smaller than separate regular/medium files.
+const GeistSans = localFont({
+  src: "../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2",
+  variable: "--font-geist-sans",
+  weight: "400 500",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: site.title,
@@ -11,10 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${GeistSans.variable} h-full antialiased`}>
       <body>{children}</body>
     </html>
   );

@@ -1,12 +1,12 @@
 export const site = {
   name: "ARSAL",
-  tagline: "Freelance graphic designer",
+  tagline: "",
   sidebarNote: "Freelance design support",
   title: "ARSAL — Freelance graphic designer",
   description:
     "Brand identity, packaging, print and digital design by Arsal, freelance graphic designer.",
   hero: {
-    topline: "FREELANCE GRAPHIC DESIGNER",
+    topline: "",
     disciplines: "BRANDING · PRINT · DIGITAL",
     scrollLabel: "Scroll to explore",
     eyebrow: "ARSAL / DESIGN PORTFOLIO",
@@ -15,6 +15,12 @@ export const site = {
     ending: "Inspire.",
     copy: "Thoughtful design for brands with a story.",
     button: "Explore Work",
+    portrait: {
+      src: "/media/hero-portrait.webp",
+      width: 1083,
+      height: 1452,
+      alt: "Arsal wearing a navy suit and white shirt",
+    },
   },
   featured: {
     eyebrow: "01 / FEATURED WORK",

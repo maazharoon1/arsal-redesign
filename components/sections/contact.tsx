@@ -18,13 +18,17 @@ export function Contact() {
           />
         </div>
         <div className="contact-copy">
-          <p className="eyebrow">{site.contact.eyebrow}</p>
-          <h2 id="contact-heading">
+          <p className="eyebrow" data-reveal>
+            {site.contact.eyebrow}
+          </p>
+          <h2 id="contact-heading" data-reveal>
             {site.contact.heading}
             <br />
             <em>{site.contact.accent}</em>
           </h2>
-          <p className="supporting-copy">{site.contact.copy}</p>
+          <p className="supporting-copy" data-reveal data-reveal-order="1">
+            {site.contact.copy}
+          </p>
           <ContactActions />
         </div>
       </section>

@@ -1,0 +1,172 @@
+/* Interaction and overlay timing shares the site's motion tokens. */
+.button,
+.icon-button,
+.nav-link,
+.category-button,
+.mobile-menu-trigger,
+.mobile-category-trigger,
+.mobile-talk,
+.mobile-menu nav a,
+.footer nav a {
+  transition:
+    color var(--motion-duration) var(--motion-ease),
+    background var(--motion-duration) var(--motion-ease),
+    border-color var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+}
+.button svg,
+.card-arrow svg,
+.text-link svg,
+.category-preview-caption svg {
+  transition: transform var(--motion-duration) var(--motion-ease);
+}
+.button:is(:hover, :focus-visible) svg,
+.text-link:is(:hover, :focus-visible) svg {
+  transform: translate(3px, -2px);
+}
+.button:is(:focus-visible),
+.mobile-talk:is(:hover, :focus-visible) {
+  background: #ff927b;
+}
+.nav-link:focus-visible,
+.category-button:focus-visible,
+.mobile-menu nav a:is(:hover, :focus-visible) {
+  background: #bda0f11a;
+}
+.media-card,
+.category-preview {
+  transition:
+    border-color var(--motion-duration) var(--motion-ease),
+    box-shadow var(--motion-duration) var(--motion-ease);
+}
+.media-card:focus-visible .card-arrow,
+.category-preview:focus-visible {
+  border-color: var(--lavender);
+}
+.media-card:is(:hover, :focus-visible) .card-arrow svg {
+  transform: translate(2px, -2px);
+}
+.card-arrow {
+  transition:
+    color var(--motion-duration) var(--motion-ease),
+    background var(--motion-duration) var(--motion-ease),
+    border-color var(--motion-duration) var(--motion-ease);
+}
+.category-preview img {
+  transition: transform 400ms var(--motion-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .category-preview:is(:hover, :focus-visible) img {
+    transform: scale(1.025);
+  }
+  .media-card:hover {
+    box-shadow: 0 8px 24px #05040b35;
+  }
+}
+.button:active,
+.icon-button:active,
+.mobile-menu-trigger:active,
+.mobile-category-trigger:active,
+.mobile-talk:active {
+  transform: translateY(1px);
+}
+.footer nav a:focus-visible,
+.text-link:is(:hover, :focus-visible) {
+  color: var(--lavender);
+}
+.dialog-overlay[data-state="open"] {
+  animation: overlay-in 240ms var(--motion-ease);
+}
+.dialog-overlay[data-state="closed"] {
+  animation: overlay-out 200ms var(--motion-ease);
+}
+.dialog-content[data-state="open"] {
+  animation: dialog-in 320ms var(--motion-ease);
+}
+.dialog-content[data-state="closed"] {
+  animation: dialog-out 200ms var(--motion-ease);
+}
+/* The full-screen viewer contains fixed navigation: move only its media panel. */
+.viewer-shell[data-state="open"] {
+  animation: overlay-in 280ms var(--motion-ease);
+}
+.viewer-shell[data-state="closed"] {
+  animation: overlay-out 200ms var(--motion-ease);
+}
+.viewer-shell[data-state="open"] .viewer-panel {
+  animation: dialog-in 320ms var(--motion-ease);
+}
+.glow-conic {
+  animation: none;
+  opacity: 0.45;
+  transition: opacity var(--motion-duration) var(--motion-ease);
+}
+.glow-card:is(:hover, :focus-within) .glow-conic {
+  opacity: 0.9;
+}
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0.3;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes dialog-out {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+@media (max-width: 1023px) {
+  .dialog-content[data-state="open"] {
+    animation-duration: 280ms;
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0.5;
+      translate: 0 6px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog-overlay,
+  .dialog-content,
+  .viewer-panel,
+  .hero-wordmark > span,
+  .hero-portrait,
+  .hero-copy > * {
+    animation: none !important;
+  }
+  .button svg,
+  .card-arrow svg,
+  .category-preview img {
+    transform: none !important;
+  }
+}

@@ -4,7 +4,7 @@ import { categories } from "../config/navigation";
 
 async function ready(page: Page, url = "/") {
   await page.goto(url);
-  await expect(page.locator("#hero-heading")).toBeVisible();
+  await expect(page.locator("#home")).toBeVisible();
   // The interactive selection confirms hydration before testing client controls.
   await expect(page.locator(".category-button.active").first()).toHaveAttribute(
     "aria-pressed",
@@ -101,14 +101,12 @@ test("mobile drawer selects every category, traps focus, restores focus and clos
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(trigger).toBeFocused();
-  await page
-    .context()
-    .route("https://www.upwork.com/**", (route) =>
-      route.fulfill({
-        contentType: "text/html",
-        body: "<title>Upwork link check</title>",
-      }),
-    );
+  await page.context().route("https://www.upwork.com/**", (route) =>
+    route.fulfill({
+      contentType: "text/html",
+      body: "<title>Upwork link check</title>",
+    }),
+  );
   const talkPopup = page.waitForEvent("popup");
   await page.getByRole("link", { name: "Let’s Talk" }).click();
   const profile = await talkPopup;
@@ -225,14 +223,12 @@ test("navigation targets, category previews, personal ARSAL branding and Upwork 
   await expect(page.locator("body")).not.toContainText(/warsal/i);
   await expect(page.locator("#studio-heading")).toContainText("I’m Arsal.");
   await expect(page).toHaveTitle("ARSAL — Freelance graphic designer");
-  await page
-    .context()
-    .route("https://www.upwork.com/**", (route) =>
-      route.fulfill({
-        contentType: "text/html",
-        body: "<title>Upwork link check</title>",
-      }),
-    );
+  await page.context().route("https://www.upwork.com/**", (route) =>
+    route.fulfill({
+      contentType: "text/html",
+      body: "<title>Upwork link check</title>",
+    }),
+  );
   for (const link of [
     page.locator(".sidebar-bottom a"),
     page.locator(".contact-actions a"),
@@ -313,7 +309,7 @@ test("viewport layouts, short sidebar, no clipping, screenshots and console erro
   expect(errors).toEqual([]);
 });
 
-test("reduced motion, offscreen pausing, fine pointer parallax and touch fallback", async ({
+test("reduced motion and visibility-aware category scene with stable hero layers", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -339,26 +335,21 @@ test("reduced motion, offscreen pausing, fine pointer parallax and touch fallbac
     "data-in-view",
     "false",
   );
-  await page.mouse.move(1150, 300);
-  await expect(page.locator(".hero-art")).toHaveAttribute(
-    "data-in-view",
-    "true",
-  );
-  await expect
-    .poll(() =>
-      page
-        .locator(".hero-art")
-        .evaluate((element) => element.style.getPropertyValue("--pointer-x")),
-    )
-    .not.toBe("0deg");
+  const transform = await page
+    .locator(".hero-portrait-layer")
+    .evaluate((element) => getComputedStyle(element).transform);
+  await page.evaluate(() => window.scrollTo({ top: 200, behavior: "instant" }));
+  expect(
+    await page
+      .locator(".hero-portrait-layer")
+      .evaluate((element) => getComputedStyle(element).transform),
+  ).toBe(transform);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect
-    .poll(() =>
-      page
-        .locator(".hero-art")
-        .evaluate((element) => element.style.getPropertyValue("--pointer-x")),
-    )
-    .toBe("0deg");
+  expect(
+    await page
+      .locator(".hero-wordmark > span")
+      .evaluate((element) => getComputedStyle(element).animationName),
+  ).toBe("none");
 });
 
 test("touch devices have no pointer-follow motion and retain readable navigation", async ({
@@ -372,14 +363,14 @@ test("touch devices have no pointer-follow motion and retain readable navigation
   });
   const page = await context.newPage();
   await page.goto(process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000");
-  await page.locator(".hero-art").scrollIntoViewIfNeeded();
-  await page.locator(".hero-art").dispatchEvent("pointermove", {
+  await page.locator("#home").scrollIntoViewIfNeeded();
+  await page.locator("#home").dispatchEvent("pointermove", {
     clientX: 350,
     clientY: 550,
     pointerType: "touch",
   });
   const value = await page
-    .locator(".hero-art")
+    .locator("#home")
     .evaluate((element) => element.style.getPropertyValue("--pointer-x"));
   expect(["", "0deg"]).toContain(value);
   await page.getByRole("button", { name: "Categories", exact: true }).tap();

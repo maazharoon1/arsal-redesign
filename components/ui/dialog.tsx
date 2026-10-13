@@ -11,8 +11,10 @@ export const DialogTitle = DialogPrimitive.Title;
 export const DialogDescription = DialogPrimitive.Description;
 export const DialogContent = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+    closeLabel?: string;
+  }
+>(({ className, children, closeLabel = "Close preview", ...props }, ref) => (
   <DialogPrimitive.Portal>
     <DialogPrimitive.Overlay className="dialog-overlay" />
     <DialogPrimitive.Content
@@ -23,7 +25,7 @@ export const DialogContent = React.forwardRef<
       {children}
       <DialogPrimitive.Close
         className="icon-button dialog-close"
-        aria-label="Close preview"
+        aria-label={closeLabel}
       >
         <X size={20} aria-hidden="true" />
       </DialogPrimitive.Close>

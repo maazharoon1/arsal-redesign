@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/.npm/
+/.pnpm-store/
 /.pnp
 .pnp.*
 .yarn/*
@@ -12,8 +14,10 @@
 
 # testing
 /coverage
+.nyc_output/
 /artifacts/
 /public/pdfjs/
+/public/media/projects/__qa-video.mp4
 /test-results/
 /playwright-report/
 
@@ -23,22 +27,49 @@
 
 # production
 /build
+/.turbo/
+/.cache/
+.eslintcache
+.stylelintcache
 
 # misc
 .DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+/.idea/
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
 *.pem
+*.key
+*.p12
+*.pfx
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+.npmrc
+.netrc
+.pypirc
 
 # vercel
 .vercel
+/.netlify/
+
+# Local design sources and walkthroughs; never served or deployed.
+/design-references/
 
 # typescript
 *.tsbuildinfo

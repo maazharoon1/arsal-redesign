@@ -28,24 +28,38 @@ export function Collection() {
       className="section collection"
       aria-labelledby="collection-heading"
     >
-      <p className="eyebrow">{site.collection.eyebrow}</p>
-      <div className="section-heading-row">
+      <p className="eyebrow" data-reveal>
+        {site.collection.eyebrow}
+      </p>
+      <div key={category} className="section-heading-row" data-reveal>
         <h2 id="collection-heading">{selected.label}</h2>
         <span className="collection-marker" aria-hidden="true">
           <span className="status-dot" />
           SELECTED COLLECTION
         </span>
       </div>
-      <p className="supporting-copy">{site.collection.copy}</p>
+      <p
+        key={`${category}-copy`}
+        className="supporting-copy"
+        data-reveal
+        data-reveal-order="1"
+      >
+        {site.collection.copy}
+      </p>
       <span className="sr-only" role="status">
         {selected.label}: {visible.length} artworks
       </span>
       {visible.length ? (
         <div
+          key={`${category}-grid`}
           className={`collection-grid ${category === "web-dev" ? "web-collection-grid" : ""}`}
         >
-          {visible.map((project) => (
-            <MediaCard key={project.id} project={project} />
+          {visible.map((project, index) => (
+            <MediaCard
+              key={project.id}
+              project={project}
+              revealOrder={index % 3}
+            />
           ))}
         </div>
       ) : (
