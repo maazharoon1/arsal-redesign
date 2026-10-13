@@ -8,7 +8,7 @@ export const site = {
   hero: {
     disciplines: "BRANDING · PRINT · DIGITAL",
     eyebrow: "ARSAL / DESIGN PORTFOLIO",
-    scrollLabel:"Scroll down to explore ",
+    scrollLabel:"Scroll to explore ",
     heading: "Distinct.",
     accent: "By",
     ending: "Design.",
