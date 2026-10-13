@@ -55,18 +55,7 @@
   font-family: Georgia, serif;
   font-size: 60px;
 }
-.hero-topline {
-  position: absolute;
-  top: 35px;
-  left: var(--section-padding);
-  right: var(--section-padding);
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  color: #d4c3e5;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-}
+
 .hero-copy {
   position: relative;
   z-index: 2;
@@ -74,8 +63,10 @@
   width: 40%;
 }
 .hero h1 {
-  font-size: clamp(66px, 7.2vw, 128px);
+  font-size: clamp(56px, min(6vw, 11svh), 108px);
   line-height: 0.94;
+  margin-top:10px;
+
   letter-spacing: -0.055em;
 }
 .hero h1 span {
@@ -143,7 +134,7 @@
     padding-top: 95px;
   }
   .hero h1 {
-    font-size: clamp(64px, 6vw, 88px);
+    font-size: clamp(54px, min(5.2vw, 11svh), 80px);
   }
   .hero-copy .supporting-copy {
     margin: 18px 0 20px;

@@ -6,15 +6,14 @@ export const site = {
   description:
     "Brand identity, packaging, print and digital design by Arsal, freelance graphic designer.",
   hero: {
-    topline: "",
     disciplines: "BRANDING · PRINT · DIGITAL",
-    scrollLabel: "Scroll to explore",
     eyebrow: "ARSAL / DESIGN PORTFOLIO",
-    heading: "Think.",
-    accent: "Create.",
-    ending: "Inspire.",
-    copy: "Thoughtful design for brands with a story.",
-    button: "Explore Work",
+    scrollLabel:"Scroll down to explore ",
+    heading: "Distinct.",
+    accent: "By",
+    ending: "Design.",
+    copy: "Brand identities that capture who you are and give people a reason to remember.",
+    button: "Explore My Work",
     portrait: {
       src: "/media/hero-portrait.webp",
       width: 1083,

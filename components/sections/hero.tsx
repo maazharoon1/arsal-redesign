@@ -8,10 +8,7 @@ export function Hero() {
   return (
     <section id="home" className="hero" aria-label="Arsal design portfolio">
       <HeroDecorations />
-      <div className="hero-topline">
-        <span>{site.hero.eyebrow}</span>
-        <span>{site.hero.disciplines}</span>
-      </div>
+ 
       <div className="hero-wordmark" aria-hidden="true">
         <span>{site.name}</span>
       </div>
