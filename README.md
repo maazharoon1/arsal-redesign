@@ -25,7 +25,7 @@ Dev/build scripts copy the installed PDF.js worker into ignored `public/pdfjs/`.
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | Colors, typography, spacing, sidebar widths and motion                 | `app/globals.css`                                                              |
 | Branding, homepage copy and buttons                                    | `config/site.ts`                                                               |
-| Navigation and the 12 categories                                       | `config/navigation.ts`                                                         |
+| Navigation and the 8 categories                                       | `config/navigation.ts`                                                         |
 | Hero and Studio portrait paths and labels                              | `config/site.ts`, `site.hero.portrait` and `site.studio`                        |
 | Optimized hero portrait / existing Studio portrait                      | `public/media/hero-portrait.webp` / `public/media/arsal.webp`                   |
 | Upwork project and inquiry destination                                 | `config/site.ts`, `site.contact`                                               |
@@ -47,11 +47,11 @@ ARSAL is presented as a freelance graphic designer, using concise personal copy 
 
 ## Supplied media and navigation
 
-The collection contains 211 supplied projects. Titles, descriptions and commented-out entries were excluded. Bare Cloudinary references become `https://res.cloudinary.com/hcn0f9nu/image/upload/c_limit,w_384/f_auto/q_auto/v1/[reference]` thumbnails; full images request up to 2000 pixels. Supplied absolute URLs are preserved. Cloudinary optimizes directly; image dimensions reserve space and failed media has a fallback.
+The collection contains 109 selected supplied projects. Titles, descriptions and commented-out entries were excluded. Bare Cloudinary references become `https://res.cloudinary.com/hcn0f9nu/image/upload/c_limit,w_384/f_auto/q_auto/v1/[reference]` thumbnails; full images request up to 2000 pixels. Supplied absolute URLs are preserved. Cloudinary optimizes directly; image dimensions reserve space and failed media has a fallback.
 
 Add/replace supplied records in `data/portfolio-source.json` using `filter`, stable `id`, `type`, `mainImage`, optional `coverImages` and optional `liveUrl`. Additional cover images appear in the gallery. The typed `Project` model in `data/portfolio.ts` also supports local image/video records, independent optional covers/posters and future visually hidden metadata.
 
-The retained categories are Logo Design, Editorials, Stationery, Social Media Post, Banners, Menu, Merchandise, Packaging, Flyers & Brochures, Brand Guidelines, Pitch Deck and Web Dev. 2D Animations, 3D Animations, Emotes and Overlay are removed. Stationery now contains 28 supplied projects, Merchandise 29 and Pitch Deck 16.
+The eight retained categories are Logo Design, Editorials, Stationery, Social Media Post, Packaging, Flyers & Brochures, Brand Guidelines and Web Dev. Menu, Pitch Deck, Banners and Merchandise are removed from navigation, the category strip and portfolio records. Editorials retains its first 10 projects and Stationery its first 20, in their existing order. Removed project media is not deleted from Cloudinary. 2D Animations, 3D Animations, Emotes and Overlay remain removed.
 
 Category URLs use `/?category=logo-design#portfolio`, supporting refresh, direct entry and browser history. Unknown/removed IDs fall back to Logo Design. The sidebar opens by default and animates into an icon rail; previews share its collapse state.
 

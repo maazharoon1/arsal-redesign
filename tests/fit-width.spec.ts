@@ -5,9 +5,9 @@ test("fit-width tall artwork stays stable without scrollbars and remains draggab
 }) => {
   await page.setViewportSize({ width: 1440, height: 600 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/?category=pitch-deck#portfolio");
+  await page.goto("/?category=editorials#portfolio");
   await page
-    .getByRole("button", { name: "Open Pitch Deck artwork 16", exact: true })
+    .getByRole("button", { name: "Open Editorials artwork 1", exact: true })
     .click();
   const viewport = page.locator(".zoom-viewport");
   const active = page.locator(

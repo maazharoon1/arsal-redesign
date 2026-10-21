@@ -1,18 +1,28 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { categories } from "../config/navigation";
 
-test("supplied assets, twelve categories and animated sidebar rail work across viewer navigation", async ({
+test("supplied assets, configured categories and animated sidebar rail work across viewer navigation", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   await expect(page.locator("#portfolio .media-card")).toHaveCount(19);
-  for (const label of ["2D Animations", "3D Animations", "Emotes", "Overlay"])
+  for (const label of [
+    "2D Animations",
+    "3D Animations",
+    "Emotes",
+    "Overlay",
+    "Menu",
+    "Pitch Deck",
+    "Banners",
+    "Merchandise",
+  ])
     await expect(
       page.getByRole("button", { name: label, exact: true }),
     ).toHaveCount(0);
   await expect(page.locator(".desktop-sidebar .category-button")).toHaveCount(
-    12,
+    categories.length,
   );
   const main = page.locator(".site-main");
   const opened = await main.boundingBox();

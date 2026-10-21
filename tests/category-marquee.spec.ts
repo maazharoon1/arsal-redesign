@@ -7,13 +7,13 @@ const sourceLabels: Record<string, string> = {
   "social-media-post": "socialmediapost",
 };
 
-test("category strip uses each category's first project and opens all twelve collections", async ({
+test("category strip uses each category's first project and opens all configured collections", async ({
   page,
 }) => {
   test.setTimeout(90_000);
   await page.goto("/#featured");
   const original = page.locator(".category-strip-group").first();
-  await expect(original.locator("a")).toHaveCount(12);
+  await expect(original.locator("a")).toHaveCount(categories.length);
   await expect(page.locator("#featured h2, #featured p")).toHaveCount(0);
   for (const category of categories) {
     const first = source.find(

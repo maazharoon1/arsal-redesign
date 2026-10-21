@@ -44,13 +44,9 @@ const categoryMap: Record<string, CategoryId> = {
   Stationery: "stationery",
   socialmediapost: "social-media-post",
   "Social Media Post": "social-media-post",
-  Banners: "banners",
-  Menu: "menu",
-  Merchandise: "merchandise",
   Packaging: "packaging",
   "Flyers & Brochures": "flyers-brochures",
   "Brand Guidelines": "brand-guidelines",
-  "Pitch Deck": "pitch-deck",
   "Web Dev": "web-dev",
 };
 type SourceProject = {

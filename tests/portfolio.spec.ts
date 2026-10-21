@@ -19,7 +19,7 @@ async function noOverflow(page: Page) {
   ).toBe(true);
 }
 
-test("all twelve desktop categories, active state, direct entry, refresh and history", async ({
+test("all configured desktop categories, active state, direct entry, refresh and history", async ({
   page,
 }) => {
   test.setTimeout(120_000);
@@ -46,7 +46,9 @@ test("all twelve desktop categories, active state, direct entry, refresh and his
     ).toBeLessThan(100);
   }
   await page.goBack();
-  await expect(page.locator("#collection-heading")).toHaveText("Pitch Deck");
+  await expect(page.locator("#collection-heading")).toHaveText(
+    categories.at(-2)!.label,
+  );
   await page.goForward();
   await expect(page.locator("#collection-heading")).toHaveText("Web Dev");
   for (const category of categories) {
