@@ -253,6 +253,13 @@
     "coverImages": []
   },
   {
+    "filter": "Editorials",
+    "id": "bookcover11",
+    "type": "image",
+    "mainImage": "bk99",
+    "coverImages": []
+  },
+  {
     "filter": "socialmediapost",
     "id": "SocialMediaDesign1",
     "type": "image",
